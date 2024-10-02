@@ -1,7 +1,3 @@
 resources:
-  - backend-service.yaml
-  - frontend-service.yaml
-  - mysql-service.yaml
-  - nginx-service.yaml
-  - redis-service.yaml
-
+- backend-service.yaml
+- frontend-service.yaml
