@@ -23,17 +23,17 @@ spec:
         - name: PORT
           value: "8000"
         - name: NODE_ENV
-          value: "production"
+          value: "notproduction"
         - name: MYSQL_HOST
-          value: "mysql-server"
+          value: "team1-awesome.c34mq0wwazjx.ap-northeast-3.rds.amazonaws.com"
         - name: MYSQL_PORT
           value: "3306"
         - name: MYSQL_DATABASE
           value: "mybank"
         - name: MYSQL_USER
-          value: "student"
+          value: "admin"
         - name: MYSQL_PASSWORD
-          value: "abc123"
+          value: "lyDbbrGdwWcCGOQGP4E7"
         - name: REDIS_HOST
           value: "redis-server"
         - name: REDIS_PORT
