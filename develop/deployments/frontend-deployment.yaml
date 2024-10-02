@@ -17,7 +17,7 @@ spec:
       - name: my-registry-secret
       containers:
       - name: frontend
-        image: nexus.local:5000/mid-bank-frontend:v0.0.1
+        image: nexus.mycluster.shop:5000/node-frontend:v0.0.1
         imagePullPolicy: Always
         env:
         - name: PORT
@@ -43,6 +43,6 @@ spec:
         - name: REDIS_PORT
           value: "6379"
         - name: REDIS_SECRET
-          value: "20240703MiniprojectSecretKey"
+          value: "20240930ProjectSecretKey"
         ports:
         - containerPort: 3000
