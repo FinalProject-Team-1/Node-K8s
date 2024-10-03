@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: bank-gateway
+  namespace: bank-namespace
+spec:
+  selector:
+    istio: ingressgateway # Istio Ingress Gateway를 사용
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: my-tls-secret # TLS 인증서 설정
+    hosts:
+    - "*"
+
