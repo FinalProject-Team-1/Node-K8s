@@ -3,8 +3,8 @@ kind: Kustomization
 resources:
 - deployments/
 - horizontal-pod-autoscalers/
+- istio/
 - namespaces/
 - network-policies/
 - secrets/
 - services/
-- lstio/

@@ -12,14 +12,13 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "*"
+    - "team1-bank.lion.nyhhs.com"
   - port:
       number: 443
       name: https
       protocol: HTTPS
     tls:
       mode: SIMPLE
-      credentialName: my-tls-secret # TLS 인증서 설정
+      credentialName: "acm-cert"
     hosts:
-    - "*"
-
+    - "team1-bank.lion.nyhhs.com"
