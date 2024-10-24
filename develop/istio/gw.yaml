@@ -5,20 +5,14 @@ metadata:
   namespace: bank-namespace
 spec:
   selector:
-    istio: ingressgateway # Istio Ingress Gateway를 사용
+    istio: ingressgateway
   servers:
   - port:
-      number: 80
+      number: 443
       name: http
       protocol: HTTP
     hosts:
-    - "team1-bank.lion.nyhhs.com"
-  - port:
-      number: 443
-      name: https
-      protocol: HTTPS
-    tls:
-      mode: SIMPLE
-      credentialName: "acm-cert"
-    hosts:
-    - "team1-bank.lion.nyhhs.com"
+    - "*.lion.nyhhs.com"
+    - "*.elb.ap-northeast-3.amazonaws.com"
+    - "*.ap-northeast-3.elb.amazonaws.com"
+    - "*.awsglobalaccelerator.com"

@@ -35,9 +35,9 @@ spec:
         - name: MYSQL_PASSWORD
           value: "lyDbbrGdwWcCGOQGP4E7"
         - name: REDIS_HOST
-          value: "redis-server"
+          value: "team1-jake.lion.nyhhs.com"
         - name: REDIS_PORT
-          value: "6379"
+          value: "30379"
         - name: REDIS_SECRET
           value: "20240930ProjectSecretKey"
         ports:

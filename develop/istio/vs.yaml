@@ -25,4 +25,3 @@ spec:
         host: frontend-server.bank-namespace.svc.cluster.local
         port:
           number: 3000
-
