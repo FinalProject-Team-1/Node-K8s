@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 NAMESPACE="bank-namespace"
 replicasets=($(kubectl get rs -n $NAMESPACE -o jsonpath='{.items[*].metadata.name}'))
