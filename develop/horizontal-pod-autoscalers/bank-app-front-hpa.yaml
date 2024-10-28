@@ -54,7 +54,7 @@ spec:
           name: frontend_response_time
         target:
           type: AverageValue
-          averageValue: 2
+          averageValue: 5
     - type: Object
       object:
         describedObject:
