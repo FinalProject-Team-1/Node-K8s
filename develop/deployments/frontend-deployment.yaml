@@ -54,3 +54,7 @@ spec:
           value: "2"
         ports:
         - containerPort: 3000
+      - name: istio-proxy
+        image: nexus.mycluster.shop:5000/istio-proxy:latest
+        ports:
+        - containerPort: 15000

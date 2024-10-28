@@ -42,3 +42,7 @@ spec:
           value: "20240930ProjectSecretKey"
         ports:
         - containerPort: 8000
+      - name: istio-proxy
+        image: nexus.mycluster.shop:5000/istio-proxy:latest
+        ports:
+        - containerPort: 15000
