@@ -1,0 +1,57 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: backend-scaledobject
+  namespace: bank-namespace
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend-server
+  minReplicaCount: 1
+  maxReplicaCount: 5
+  triggers:
+  # cpu
+  - type: prometheus
+    metadata:
+      serverAddress: http://kube-prometheus-stack-1727-prometheus.team1-monitoring.svc.cluster.local:9090
+      metricName: backend_cpu
+      query: |
+        sum(rate(container_cpu_usage_seconds_total{namespace="bank-namespace",pod=~"backend-server-.*"}[5m]))
+        / count(count by (node) (kube_node_status_allocatable{resource="cpu"})) * 100
+      threshold: '2'
+  # memory
+  - type: prometheus
+    metadata:
+      serverAddress: http://kube-prometheus-stack-1727-prometheus.team1-monitoring.svc.cluster.local:9090
+      metricName: backend_memory
+      query: |
+        sum(container_memory_working_set_bytes{namespace="bank-namespace",pod=~"backend-server-.*"})
+      threshold: '566231040'
+  # rps
+  - type: prometheus
+    metadata:
+      serverAddress: http://kube-prometheus-stack-1727-prometheus.team1-monitoring.svc.cluster.local:9090
+      metricName: backend_rps
+      query: |
+        sum(rate(istio_requests_total{destination_app="backend",reporter="destination"}[5m])) 
+        / sum(kube_deployment_status_replicas_available{deployment="backend-server",namespace="bank-namespace"})
+      threshold: '10'
+  # response time
+  - type: prometheus
+    metadata:
+      serverAddress: http://kube-prometheus-stack-1727-prometheus.team1-monitoring.svc.cluster.local:9090
+      metricName: backend_response_time
+      query: |
+        sum(rate(istio_request_duration_milliseconds_sum{destination_app="backend",namespace="bank-namespace"}[5m])) 
+        / clamp_min(sum(rate(istio_requests_total{destination_app="backend",namespace="bank-namespace"}[5m])), 1)
+      threshold: '5'
+  # network traffic
+  - type: prometheus
+    metadata:
+      serverAddress: http://kube-prometheus-stack-1727-prometheus.team1-monitoring.svc.cluster.local:9090
+      metricName: frontend_network_traffic
+      query: |
+        sum(rate(container_network_receive_bytes_total{namespace="bank-namespace",pod=~"backend-server-.*"}[5m])) 
+        + sum(rate(container_network_transmit_bytes_total{namespace="bank-namespace",pod=~"backend-server-.*"}[5m]))
+      threshold: '50000'
