@@ -12,8 +12,8 @@ spec:
       rules:
         - record: frontend_cpu_usage_percentage
           expr: |
-            sum(rate(container_cpu_usage_seconds_total{namespace="bank-namespace", pod=~"frontend-server-.*"}[5m]))
-            / sum(kube_pod_container_resource_requests{namespace="bank-namespace", pod=~"frontend-server-.*", resource="cpu"})
+            sum(rate(container_cpu_usage_seconds_total{namespace="bank-namespace",pod=~"frontend-server-.*"}[5m]))
+            / count(count by (node) (kube_node_status_allocatable{resource="cpu"})) * 100
           labels:
             namespace: bank-namespace
             service: frontend-server
@@ -21,8 +21,8 @@ spec:
       rules:
         - record: backend_cpu_usage_percentage
           expr: |
-            sum(rate(container_cpu_usage_seconds_total{namespace="bank-namespace", pod=~"backend-server-.*"}[5m]))
-            / sum(kube_pod_container_resource_requests{namespace="bank-namespace", pod=~"backend-server-.*", resource="cpu"})
+            sum(rate(container_cpu_usage_seconds_total{namespace="bank-namespace",pod=~"backend-server-.*"}[5m]))
+            / count(count by (node) (kube_node_status_allocatable{resource="cpu"})) * 100
           labels:
             namespace: bank-namespace
             service: backend-server
